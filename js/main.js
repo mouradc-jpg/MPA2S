@@ -310,7 +310,7 @@
   if (!form) return;
 
   // 2) URL de déploiement Apps Script ("/exec")
-  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbz25RY0KjreI5fO1imSXjty8YFWtnicfDztzJkV1Us1C1ORQnPJyESlrnOqcU5dYv4uaw/exec';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzmbWTeZtB2i9iDsh3JshKo0ORIrR42m-LeZVMyWGHqr95pa9e_SrnRlu7Sj_wYlYcc4w/exec';
 
   // 3) Garde un fallback si JS désactivé
   form.setAttribute('action', ENDPOINT);
