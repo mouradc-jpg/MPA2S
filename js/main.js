@@ -301,106 +301,86 @@
 
 
 /* ============================
-       Contact (Google Apps Script)
-       ============================ */
-    (function setupContactForm() {
-        // 1) Sélectionne le formulaire de la section #contact
-        var form = document.querySelector('#contact .form') || document.querySelector('form.form');
-        if (!form) return;
+   Contact (Google Apps Script)
+   Option A: no-cors (fire-and-forget)
+   ============================ */
+(function setupContactForm() {
+  // 1) Sélectionne le formulaire de la section #contact
+  var form = document.querySelector('#contact .form') || document.querySelector('form.form');
+  if (!form) return;
 
-        // 2) Ton URL de déploiement Apps Script ("/exec")
-        var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwRJQ40tbhjH01M1MSeB_bip2RfbREsm0KpbEZuuGlg8Lv0wOL-5jaCBjo9BeTDKWOu5A/exec';
+  // 2) URL de déploiement Apps Script ("/exec")
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwRJQ40tbhjH01M1MSeB_bip2RfbREsm0KpbEZuuGlg8Lv0wOL-5jaCBjo9BeTDKWOu5A/exec';
 
-        // 3) Met à jour l'action pour garder un fallback si JS désactivé
-        form.setAttribute('action', ENDPOINT);
-        form.setAttribute('method', 'POST');
+  // 3) Garde un fallback si JS désactivé
+  form.setAttribute('action', ENDPOINT);
+  form.setAttribute('method', 'POST');
 
-        // 4) Zone de statut (si absente, on en crée une)
-        var statusEl = document.getElementById('form-status');
-        if (!statusEl) {
-            statusEl = document.createElement('p');
-            statusEl.id = 'form-status';
-            statusEl.setAttribute('aria-live', 'polite');
-            var actions = form.querySelector('.form__actions') || form;
-            actions.appendChild(statusEl);
-        }
+  // 4) Zone de statut (créée si absente)
+  var statusEl = document.getElementById('form-status');
+  if (!statusEl) {
+    statusEl = document.createElement('p');
+    statusEl.id = 'form-status';
+    statusEl.setAttribute('aria-live', 'polite');
+    var actions = form.querySelector('.form__actions') || form;
+    actions.appendChild(statusEl);
+  }
 
-        // 5) Soumission asynchrone
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
+  // 5) Soumission asynchrone
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-            // Honeypot (si présent dans le HTML)
-            var honeypot = form.querySelector('input[name="_gotcha"]');
-            if (honeypot && honeypot.value.trim() !== '') {
-                // On fait comme si c'était ok (bot)
-                form.reset();
-                statusEl.textContent = 'Merci !';
-                return;
-            }
+    // Honeypot (si présent)
+    var honeypot = form.querySelector('input[name="_gotcha"]');
+    if (honeypot && honeypot.value.trim() !== '') {
+      form.reset();
+      statusEl.textContent = 'Merci !';
+      return;
+    }
 
-            // Validation HTML5
-            if (typeof form.reportValidity === 'function') {
-                if (!form.reportValidity()) {
-                    return;
-                }
-            } else if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
-                return;
-            }
+    // Validation HTML5
+    if (typeof form.reportValidity === 'function') {
+      if (!form.reportValidity()) return;
+    } else if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+      return;
+    }
 
-            var submitBtn = form.querySelector('button[type="submit"]');
-            if (submitBtn) submitBtn.disabled = true;
-            statusEl.textContent = 'Envoi en cours…';
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+    statusEl.textContent = 'Envoi en cours…';
 
-            // Petite pause anti-bot
-            setTimeout(function () {
-                var data = new FormData(form);
-
-                fetch(ENDPOINT, {
-                    method: 'POST',
-                    body: data
-                })
-                .then(function (res) {
-                    if (res.type === 'opaque') {
-                        return { text: null };
-                    }
-                    if (!res.ok) {
-                        throw new Error('HTTP ' + res.status);
-                    }
-                    return res.text().then(function (text) {
-                        return { text: text };
-                    });
-                })
-                .then(function (result) {
-                    if (!result) {
-                        return;
-                    }
-                    if (result.text === null) {
-                        form.reset();
-                        statusEl.textContent = 'Merci ! Votre message a bien été envoyé.';
-                        return;
-                    }
-                    try {
-                        var json = JSON.parse(result.text);
-                        if (json && json.ok) {
-                            form.reset();
-                            statusEl.textContent = 'Merci ! Votre message a bien été envoyé.';
-                            return;
-                        }
-                    } catch (_) {
-                        /* ignore, ce n'est pas du JSON */
-                    }
-
-                    form.reset();
-                    statusEl.textContent = 'Merci ! Votre message a bien été envoyé.';
-                })
-                .catch(function (err) {
-                    statusEl.textContent = "Oups, une erreur est survenue. Réessayez dans un instant.";
-                    console.error('[Contact form] ', err);
-                })
-                .finally(function () {
-                    if (submitBtn) submitBtn.disabled = false;
-                });
-            }, 600);
+    // Petite pause anti-bot
+    setTimeout(async function () {
+      try {
+        // Sérialisation en x-www-form-urlencoded
+        var fd = new FormData(form);
+        var params = new URLSearchParams();
+        fd.forEach(function (value, key) {
+          // Normalise le consentement checkbox en "on"/"off"
+          if (key === 'consent') {
+            params.append('consent', value ? 'on' : 'off');
+          } else {
+            params.append(key, value);
+          }
         });
-    })();
+
+        await fetch(ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors', // clé: réponse opaque, pas de CORS
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params.toString()
+        });
+
+        // Pas de res.json()/res.text() ici (opaque)
+        form.reset();
+        statusEl.textContent = 'Merci ! Votre message a bien été envoyé.';
+      } catch (err) {
+        console.error('[Contact form]', err);
+        statusEl.textContent = "Oups, une erreur est survenue. Réessayez dans un instant.";
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    }, 600);
+  });
+})(); 
 });
