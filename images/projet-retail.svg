@@ -1,0 +1,18 @@
+<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 800 500\">
+  <defs>
+    <linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">
+      <stop offset=\"0%\" stop-color=\"#1f3c88\"/>
+      <stop offset=\"100%\" stop-color=\"#f2994a\"/>
+    </linearGradient>
+  </defs>
+  <rect width=\"800\" height=\"500\" fill=\"url(#bg)\" rx=\"24\"/>
+  <g fill=\"none\" stroke=\"#fff\" stroke-width=\"12\" stroke-linecap=\"round\" stroke-linejoin=\"round\">
+    <rect x=\"140\" y=\"150\" width=\"520\" height=\"220\" rx=\"16\"/>
+    <path d=\"M140 210h520\" opacity=\"0.8\"/>
+    <path d=\"M200 370v-100l80 0v100\"/>
+    <path d=\"M320 370v-140h120v140\" opacity=\"0.8\"/>
+    <path d=\"M480 370v-80h120v80\"/>
+  </g>
+  <path d=\"M120 120h560l-32-60H152z\" fill=\"rgba(255,255,255,0.18)\"/>
+  <circle cx=\"640\" cy=\"110\" r=\"26\" fill=\"#fff\" opacity=\"0.4\"/>
+</svg>
