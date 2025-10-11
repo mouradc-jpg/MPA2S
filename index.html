@@ -441,19 +441,17 @@
                 </ul>
             </div>
             <div>
-                <h4>Ressources</h4>
+                <h4>Informations légales</h4>
                 <ul>
-                    <li><a href="#engagements">Nos certifications</a></li>
-                    <li><a href="#expertise">Contrats de maintenance</a></li>
-                    <li><a href="#contact">Devis en ligne</a></li>
-                    <li><a href="#contact">Support</a></li>
+                    <li><a href="#" class="footer__link modal-trigger" data-modal="legal-modal">Mentions l&eacute;gales</a></li>
+                    <li><a href="#" class="footer__link modal-trigger" data-modal="privacy-modal">Politique de confidentialit&eacute;</a></li>
                 </ul>
             </div>
             <div>
                 <h4>Contact</h4>
                 <ul>
-                    <li><a href="tel:+33646107519">06&nbsp;46&nbsp;10&nbsp;75&nbsp;19</a></li>
-                    <li><a href="mailto:contact@mpa2s.com">contact@mpa2s.com</a></li>
+                    <li><span>06&nbsp;46&nbsp;10&nbsp;75&nbsp;19</span></li>
+                    <li><span>contact@mpa2s.com</span></li>
                     <li>Intervention 24/7</li>
                 </ul>
             </div>
@@ -461,12 +459,113 @@
         <div class="footer__bottom">
             <div class="container footer__bottom-content">
                 <p>&copy;&nbsp;2025 MPA2S. Tous droits r&eacute;serv&eacute;s.</p>
-                <p>SARL au capital de 22&nbsp;000&nbsp;EUR - SIREN 984&nbsp;684&nbsp;795 RCS Bobigny</p>
-                <a href="#" class="footer__link">Mentions l&eacute;gales</a>
-                <a href="#" class="footer__link">Politique de confidentialit&eacute;</a>
             </div>
         </div>
     </footer>
+
+    <div class="modal" id="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-modal-title" aria-hidden="true">
+        <div class="modal__overlay" data-modal-close></div>
+        <div class="modal__dialog" role="document">
+            <header class="modal__header">
+                <h2 id="legal-modal-title">Mentions l&eacute;gales</h2>
+            </header>
+            <div class="modal__body">
+                <h3>Éditeur du site</h3>
+                <p>
+                    <strong>MPA2S</strong><br>
+                    SARL au capital de 22&nbsp;000&nbsp;€<br>
+                    SIREN&nbsp;: 984&nbsp;684&nbsp;795 – RCS Bobigny<br>
+                    Si&egrave;ge&nbsp;: 22 rue Montgolfier, 93150 Le Blanc-Mesnil, France<br>
+                    T&eacute;l.&nbsp;: 06&nbsp;46&nbsp;10&nbsp;75&nbsp;19 – Email&nbsp;: contact@mpa2s.com
+                </p>
+
+                <h3>Responsable de publication</h3>
+                <p>Le directeur de la publication est le repr&eacute;sentant l&eacute;gal de MPA2S.</p>
+
+                <h3>H&eacute;bergement</h3>
+                <p>Site h&eacute;berg&eacute; par&nbsp;: <strong>GitHub Pages</strong> (GitHub, Inc.), 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA – pages.github.com</p>
+
+                <h3>Traitements techniques associ&eacute;s</h3>
+                <p>Le formulaire de contact est op&eacute;r&eacute; via <strong>Google Apps Script</strong> (Google Ireland Limited).</p>
+
+                <h3>Propri&eacute;t&eacute; intellectuelle</h3>
+                <p>L’ensemble des contenus (textes, marques, logos, images) pr&eacute;sents sur ce site sont la propri&eacute;t&eacute; de MPA2S ou de leurs titulaires respectifs. Toute reproduction, repr&eacute;sentation, modification, publication, transmission est interdite sans autorisation &eacute;crite pr&eacute;alable.</p>
+
+                <h3>Responsabilit&eacute;</h3>
+                <p>Les informations fournies le sont &agrave; titre indicatif. MPA2S met tout en œuvre pour assurer l’exactitude des contenus, mais ne peut garantir l’absence d’erreurs ou d’omissions. L’&eacute;diteur se r&eacute;serve le droit de modifier le site &agrave; tout moment.</p>
+
+                <h3>Contact</h3>
+                <p>Pour toute question relative au site&nbsp;: contact@mpa2s.com</p>
+            </div>
+            <footer class="modal__footer">
+                <button type="button" class="btn btn--secondary modal__print" data-modal-print>Imprimer</button>
+                <button type="button" class="btn btn--primary modal__close" data-modal-close>OK</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title" aria-hidden="true">
+        <div class="modal__overlay" data-modal-close></div>
+        <div class="modal__dialog" role="document">
+            <header class="modal__header">
+                <h2 id="privacy-modal-title">Politique de confidentialit&eacute;</h2>
+                <p class="modal__meta">Derni&egrave;re mise &agrave; jour&nbsp;: 11/10/2025</p>
+            </header>
+            <div class="modal__body">
+                <h3>1. Responsable du traitement</h3>
+                <p>
+                    <strong>MPA2S</strong>, SARL au capital de 22&nbsp;000&nbsp;€, SIREN&nbsp;984&nbsp;684&nbsp;795 (RCS Bobigny)<br>
+                    Si&egrave;ge&nbsp;: 22 rue Montgolfier, 93150 Le Blanc-Mesnil, France<br>
+                    Contact : contact@mpa2s.com – 06&nbsp;46&nbsp;10&nbsp;75&nbsp;19
+                </p>
+
+                <h3>2. Donn&eacute;es collect&eacute;es</h3>
+                <ul>
+                    <li>Donn&eacute;es d’identification et de contact (nom, soci&eacute;t&eacute;, email, t&eacute;l&eacute;phone)</li>
+                    <li>Contenu du message transmis via le formulaire de contact</li>
+                    <li>M&eacute;tadonn&eacute;es techniques minimales (date/heure d’envoi, adresses IP dans les journaux de l’h&eacute;bergeur)</li>
+                </ul>
+
+                <h3>3. Finalit&eacute;s et bases l&eacute;gales</h3>
+                <ul>
+                    <li><strong>R&eacute;pondre &agrave; vos demandes</strong> (formulaire de contact) – <em>int&eacute;r&ecirc;t l&eacute;gitime</em> et/ou <em>mesures pr&eacute;contractuelles</em></li>
+                    <li><strong>Suivi commercial B2B</strong> si vous nous sollicitez – <em>int&eacute;r&ecirc;t l&eacute;gitime</em></li>
+                    <li><strong>S&eacute;curit&eacute;, pr&eacute;vention des abus</strong> – <em>int&eacute;r&ecirc;t l&eacute;gitime</em></li>
+                </ul>
+
+                <h3>4. Destinataires</h3>
+                <p>Les donn&eacute;es sont trait&eacute;es par MPA2S et ses prestataires techniques : <strong>GitHub Pages</strong> (h&eacute;bergement du site) et <strong>Google Apps Script</strong> (acheminement des formulaires par email).</p>
+
+                <h3>5. Transferts hors UE</h3>
+                <p>L’utilisation de GitHub Pages (USA) et de services Google peut impliquer des transferts hors UE/EEE. Ces transferts s’appuient sur des garanties appropri&eacute;es (notamment les <em>clauses contractuelles types</em>). Pour plus d’informations, consultez les politiques de GitHub et Google.</p>
+
+                <h3>6. Dur&eacute;es de conservation</h3>
+                <ul>
+                    <li>Demandes entrantes (prospects) : jusqu’&agrave; 3 ans apr&egrave;s le dernier contact non sollicit&eacute;</li>
+                    <li>Journaux techniques (logs) : 6 &agrave; 12 mois (selon l’h&eacute;bergeur)</li>
+                </ul>
+
+                <h3>7. Vos droits</h3>
+                <p>Vous disposez des droits d’acc&egrave;s, de rectification, d’effacement, d’opposition, de limitation et de portabilit&eacute; dans les conditions pr&eacute;vues par le RGPD. Pour les exercer : contact@mpa2s.com (joindre un justificatif d’identit&eacute; si n&eacute;cessaire). Vous pouvez &eacute;galement introduire une r&eacute;clamation aupr&egrave;s de la <a href="https://www.cnil.fr/" target="_blank" rel="noopener">CNIL</a>.</p>
+
+                <h3>8. S&eacute;curit&eacute;</h3>
+                <p>Nous mettons en œuvre des mesures techniques et organisationnelles adapt&eacute;es au risque (acc&egrave;s restreint aux bo&icirc;tes mail, durcissement des acc&egrave;s aux comptes, surveillance des abus).</p>
+
+                <h3>9. Cookies et traceurs</h3>
+                <p>Ce site vitrine ne d&eacute;pose pas de cookies de publicit&eacute;. Si nous ajoutons ult&eacute;rieurement des outils de mesure d’audience n&eacute;cessitant consentement (ex. Google Analytics), un bandeau de consentement sera affich&eacute;.</p>
+
+                <h3>10. Contact confidentialit&eacute;</h3>
+                <p>Pour toute question relative &agrave; la protection des donn&eacute;es : contact@mpa2s.com</p>
+
+                <h3>11. Modifications</h3>
+                <p>La pr&eacute;sente politique peut &eacute;voluer. La date de mise &agrave; jour figure en en-t&ecirc;te.</p>
+            </div>
+            <footer class="modal__footer">
+                <button type="button" class="btn btn--secondary modal__print" data-modal-print>Imprimer</button>
+                <button type="button" class="btn btn--primary modal__close" data-modal-close>OK</button>
+            </footer>
+        </div>
+    </div>
 
     <script src="js/main.js" defer></script>
 </body>

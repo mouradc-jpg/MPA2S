@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --color-primary: #1f3c88;
     --color-secondary: #f2994a;
     --color-dark: #111c3f;
@@ -27,6 +27,10 @@ body {
 }
 
 body.is-nav-open {
+    overflow: hidden;
+}
+
+body.is-modal-open {
     overflow: hidden;
 }
 
@@ -1058,10 +1062,11 @@ textarea {
 
 .footer__bottom-content {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
     flex-wrap: wrap;
+    gap: 1rem;
+    text-align: center;
 }
 
 .footer__link {
@@ -1196,3 +1201,102 @@ textarea {
 
 
 
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+}
+
+.modal[aria-hidden="false"] {
+    display: flex;
+}
+
+.modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 28, 63, 0.55);
+}
+
+.modal__dialog {
+    position: relative;
+    max-width: min(820px, 90vw);
+    max-height: min(90vh, 960px);
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(17, 28, 63, 0.25);
+    padding: 2.5rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    overflow: hidden;
+}
+
+.modal__header h2 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: var(--color-dark);
+}
+
+.modal__meta {
+    margin: 0.35rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+}
+
+.modal__body {
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    color: var(--color-text);
+}
+
+.modal__body h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
+    font-family: var(--font-heading);
+    color: var(--color-dark);
+}
+
+.modal__body p,
+.modal__body ul {
+    margin: 0 0 1rem;
+}
+
+.modal__body ul {
+    padding-left: 1.2rem;
+}
+
+.modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+.modal__footer .btn--secondary {
+    border-color: var(--color-border);
+    color: var(--color-primary);
+    background: transparent;
+}
+
+.modal__footer .btn--secondary:hover,
+.modal__footer .btn--secondary:focus-visible {
+    transform: translateY(-2px);
+    background: rgba(31, 60, 136, 0.08);
+    border-color: var(--color-primary);
+}
+
+
+
+@media (max-width: 720px) {
+    .modal__dialog {
+        padding: 2rem 1.5rem;
+        width: 92vw;
+    }
+
+    .modal__footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+}

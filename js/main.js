@@ -83,6 +83,124 @@
         }
     }
 
+    var modalTriggers = document.querySelectorAll('.modal-trigger');
+    var modals = document.querySelectorAll('.modal');
+    var modalPrintButtons = document.querySelectorAll('[data-modal-print]');
+    var activeModal = null;
+    var lastFocusedElement = null;
+    var focusableSelectors = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+
+    function getFocusableElements(modal) {
+        return Array.prototype.slice.call(modal.querySelectorAll(focusableSelectors));
+    }
+
+    function openModal(id) {
+        var modal = document.getElementById(id);
+        if (!modal) {
+            return;
+        }
+        lastFocusedElement = document.activeElement;
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('is-modal-open');
+        activeModal = modal;
+        var focusable = getFocusableElements(modal);
+        if (focusable.length) {
+            focusable[0].focus();
+        }
+    }
+
+    function closeModal() {
+        if (!activeModal) {
+            return;
+        }
+        activeModal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('is-modal-open');
+        if (lastFocusedElement) {
+            lastFocusedElement.focus();
+        }
+        activeModal = null;
+    }
+
+    function printModal(modal) {
+        if (!modal) {
+            return;
+        }
+        var bodyContent = modal.querySelector('.modal__body');
+        if (!bodyContent) {
+            return;
+        }
+        var title = modal.querySelector('.modal__header h2');
+        var printWindow = window.open('', '_blank', 'width=900,height=960');
+        if (!printWindow) {
+            return;
+        }
+        printWindow.document.write('<html><head><title>' + (title ? title.textContent : document.title) + '</title>');
+        printWindow.document.write('<style>body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:2rem;max-width:960px;margin:auto;}h1,h2,h3{font-family:inherit;color:#111c3f;}ul{padding-left:1.2rem;}button{display:none;}</style>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(bodyContent.innerHTML);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    }
+
+    modalTriggers.forEach(function (trigger) {
+        trigger.addEventListener('click', function (event) {
+            event.preventDefault();
+            var target = trigger.getAttribute('data-modal');
+            openModal(target);
+        });
+    });
+
+    modals.forEach(function (modal) {
+        var overlay = modal.querySelector('[data-modal-close]');
+        modal.querySelectorAll('[data-modal-close]').forEach(function (closeEl) {
+            closeEl.addEventListener('click', closeModal);
+        });
+        if (overlay) {
+            overlay.addEventListener('click', closeModal);
+        }
+    });
+
+    modalPrintButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var modal = button.closest('.modal');
+            printModal(modal);
+        });
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (!activeModal) {
+            return;
+        }
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            closeModal();
+            return;
+        }
+        if (event.key === 'Tab') {
+            var focusable = getFocusableElements(activeModal);
+            if (!focusable.length) {
+                event.preventDefault();
+                return;
+            }
+            var first = focusable[0];
+            var last = focusable[focusable.length - 1];
+            if (event.shiftKey) {
+                if (document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            }
+        }
+    });
+
     if (navLinks.length && 'IntersectionObserver' in window) {
         var sections = document.querySelectorAll('main section[id]');
         var observer = new IntersectionObserver(function (entries) {
