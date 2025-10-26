@@ -1,4 +1,4 @@
 ﻿User-agent: *
 Allow: /
 
-Sitemap: https://www.mpa2s.com/sitemap.xml
+Sitemap: https://mpa2s.com/sitemap.xml
